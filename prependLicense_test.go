@@ -25,7 +25,7 @@ func Test_PrependInMemory(t *testing.T) {
 	require.NoError(t, err)
 
 	// Check if the modified content starts with the license text
-	expectedContent := "/*\n" + licenseText + "\n*/\n\n" + testContent
+	expectedContent := "// " + licenseText + "\n\n" + testContent
 	assert.Equal(t, expectedContent, string(modifiedContent))
 
 	// Check if the original content is preserved

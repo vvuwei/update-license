@@ -1,34 +1,34 @@
 package main
 
 import (
-	"fmt"
+	"flag"
+	"log"
 	"os"
-	"path/filepath"
+)
+
+var (
+	flagPath = flag.String(
+		"path",
+		".",
+		"Path to the folder containing the files to update")
+	flagDryRun = flag.Bool(
+		"dry",
+		false,
+		"Do not edit files and just print out what would be edited")
+	flagLicense = flag.String(
+		"license",
+		"",
+		"Path to the license file")
 )
 
 func main() {
-	if len(os.Args) != 2 {
-		fmt.Println("Usage: go run main.go <folder_path>")
-		return
-	}
-	folderPath := os.Args[1]
+	log.SetFlags(0)
+	log.SetOutput(os.Stdout)
+	log.SetPrefix("")
 
-	err := filepath.Walk(folderPath, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-		if !info.IsDir() && filepath.Ext(path) == ".go" {
-			err := prependLicense(path, "LICENSE")
-			if err != nil {
-				fmt.Printf("Error processing %s: %v\n", path, err)
-			} else {
-				fmt.Printf("Processed %s\n", path)
-			}
-		}
-		return nil
-	})
+	flag.Parse()
 
-	if err != nil {
-		fmt.Printf("Error walking through folder: %v\n", err)
+	if err := updateLicense(*flagPath, *flagDryRun, *flagLicense); err != nil {
+		log.Fatal(err)
 	}
 }

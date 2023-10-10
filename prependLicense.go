@@ -14,12 +14,9 @@ func prependLicense(filePath string, licenseText string) error {
 	}
 
 	licenseLines := strings.Split(licenseText, "\n")
-	commentedLicenseLines := make([]string, len(licenseLines)+2)
-	commentedLicenseLines[0] = "/*"
-	for i := 1; i < len(licenseLines)+1; i++ {
-		commentedLicenseLines[i] = licenseLines[i-1]
+	for i := 0; i < len(licenseLines); i++ {
+		licenseLines[i] = "// " + licenseLines[i]
 	}
-	commentedLicenseLines[len(licenseLines)+1] = "*/"
 
 	content := string(fileContent)
 
@@ -27,7 +24,7 @@ func prependLicense(filePath string, licenseText string) error {
 		return nil
 	}
 
-	newContent := []byte(strings.Join(append(commentedLicenseLines, "", content), "\n"))
+	newContent := []byte(strings.Join(append(licenseLines, "", content), "\n"))
 	err = os.WriteFile(filePath, newContent, 0644)
 	if err != nil {
 		return err
