@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -13,7 +12,7 @@ func updateLicense(path string, dry bool, license string) error {
 	if !dry {
 		licenseBytes, err := os.ReadFile(license)
 		if err != nil {
-			return errors.New(fmt.Sprintf("Error reading license file: %v\n", err))
+			return fmt.Errorf("Error reading license file: %v\n", err)
 		}
 
 		licenseText = string(licenseBytes)
@@ -25,7 +24,7 @@ func updateLicense(path string, dry bool, license string) error {
 	err := filepath.Walk(path, walker(dry, licenseText))
 
 	if err != nil {
-		return errors.New(fmt.Sprintf("Error walking through folder: %v\n", err))
+		return fmt.Errorf("Error walking through folder: %v\n", err)
 	}
 
 	return nil
@@ -46,7 +45,7 @@ func walker(dry bool, licenseText string) func(path string, info os.FileInfo, er
 			err := prependLicense(path, licenseText)
 
 			if err != nil {
-				return errors.New(fmt.Sprintf("Error processing %s: %v\n", path, err))
+				return fmt.Errorf("Error processing %s: %v\n", path, err)
 			}
 
 			log.Printf("Processed %s\n", path)

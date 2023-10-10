@@ -8,14 +8,17 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+const content = "This is some test content.\n"
+const licenseTxt = "This is the license text."
+
 func Test_PrependInMemory(t *testing.T) {
 	tmpDir := t.TempDir()
 	testFilePath := tmpDir + "/test.go"
-	testContent := "This is some test content.\n"
+	testContent := content
 	err := os.WriteFile(testFilePath, []byte(testContent), 0644)
 	require.NoError(t, err)
 
-	licenseText := "This is the license text."
+	licenseText := licenseTxt
 
 	// Act
 	err = prependLicense(testFilePath, licenseText)
@@ -35,7 +38,7 @@ func Test_PrependInMemory(t *testing.T) {
 func Test_PrependInMemory_UnhappyPath(t *testing.T) {
 	tmpDir := t.TempDir()
 	testFilePath := tmpDir + "/test.go"
-	testContent := "This is some test content.\n"
+	testContent := content
 	err := os.WriteFile(testFilePath, []byte(testContent), 0644)
 	require.NoError(t, err)
 
@@ -43,7 +46,7 @@ func Test_PrependInMemory_UnhappyPath(t *testing.T) {
 	err = os.WriteFile(testFilePath+".readonly", []byte(testContent), 0444)
 	require.NoError(t, err)
 
-	licenseText := "This is the license text."
+	licenseText := licenseTxt
 
 	// Act
 	err = prependLicense(testFilePath+".readonly", licenseText)
@@ -124,7 +127,7 @@ func BenchmarkPrependLicense(b *testing.B) {
 	if err != nil {
 		b.Fatalf("Error creating test file: %v", err)
 	}
-	licenseText := license
+	licenseText := licenseTxt
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {

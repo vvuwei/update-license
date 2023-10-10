@@ -1,5 +1,6 @@
 package main
 
+// nolint
 const license = `
 MIT License
 
