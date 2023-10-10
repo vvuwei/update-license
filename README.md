@@ -13,7 +13,7 @@ go get github.com/vvuwei/update-license
 Run command in the root of your application directory
 
 ```
-update-license ./... --license=./docs/LICENSE.txt
+update-license . --license=./docs/LICENSE.txt
 ```
 
 ## Further Work
