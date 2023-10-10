@@ -58,6 +58,55 @@ func Test_PrependInMemory_UnhappyPath(t *testing.T) {
 	assert.Equal(t, testContent, string(originalContent))
 }
 
+func TestHasLicense(t *testing.T) {
+	licenseLines := []string{
+		"/*",
+		"    This is the license text.",
+		"    */",
+	}
+
+	var tests = []struct {
+		name     string
+		content  string
+		license  []string
+		expected bool
+	}{
+		{
+			name: "License is present",
+			content: `/*
+    This is the license text.
+    */
+    package main`,
+			license:  licenseLines,
+			expected: true,
+		},
+		{
+			name:     "License is not present",
+			content:  `package main`,
+			license:  licenseLines,
+			expected: false,
+		},
+		{
+			name:     "Content is shorter than the license",
+			content:  `/* This is a comment. */ package main`,
+			license:  licenseLines,
+			expected: false,
+		},
+		{
+			name:     "Empty license, should always return true",
+			content:  `package main`,
+			license:  []string{},
+			expected: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.expected, hasLicense(tt.content, tt.license))
+		})
+	}
+}
+
 // Run the tests in parallel
 func TestMain(m *testing.M) {
 	// Use -parallel flag to enable parallel testing
