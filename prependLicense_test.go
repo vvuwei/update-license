@@ -115,3 +115,22 @@ func TestMain(m *testing.M) {
 	// You can remove the flag if you don't want parallel testing
 	os.Exit(m.Run())
 }
+
+func BenchmarkPrependLicense(b *testing.B) {
+	tmpDir := b.TempDir()
+	testFilePath := tmpDir + "/test.go"
+	testContent := source
+	err := os.WriteFile(testFilePath, []byte(testContent), 0644)
+	if err != nil {
+		b.Fatalf("Error creating test file: %v", err)
+	}
+	licenseText := license
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		err := prependLicense(testFilePath, licenseText)
+		if err != nil {
+			b.Fatalf("Error calling prependLicenseInMemoryWithCheck: %v", err)
+		}
+	}
+}
