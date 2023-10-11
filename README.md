@@ -18,7 +18,7 @@ go get github.com/vvuwei/update-license
 Run command in the root of your application directory
 
 ```
-update-license . --license=./docs/LICENSE.txt
+update-license -path=./ -license=./LICENSE [-dry]
 ```
 
 ## Further Work
