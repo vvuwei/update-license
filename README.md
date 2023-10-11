@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/vvuwei/update-license/workflows/Build/badge.svg)](https://github.com/vvuwei/update-license/actions?query=branch%3Amaster+workflow%3A%22Build%22)
+[![Build](https://github.com/vvuwei/update-license/actions/workflows/build.yml/badge.svg)](https://github.com/vvuwei/update-license/actions/workflows/build.yml)
 [![made_with golang](https://img.shields.io/badge/made_with-golang-blue.svg)](https://golang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Go Coverage](https://github.com/vvuwei/update-license/wiki/coverage.svg)](https://raw.githack.com/wiki/vvuwei/update-license/coverage.html)
