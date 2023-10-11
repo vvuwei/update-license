@@ -10,7 +10,7 @@ This is a small tool that updates the license header in Golang files.
 ## Installation
 
 ```
-go get github.com/vvuwei/update-license
+go install github.com/vvuwei/update-license@v0.0.1
 ```
 
 ## Usage
