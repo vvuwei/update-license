@@ -112,10 +112,6 @@ func TestHasLicense(t *testing.T) {
 
 // Run the tests in parallel
 func TestMain(m *testing.M) {
-	// Use -parallel flag to enable parallel testing
-	// For example, "go test -parallel 4"
-	// Adjust the value to control the degree of parallelism
-	// You can remove the flag if you don't want parallel testing
 	os.Exit(m.Run())
 }
 
