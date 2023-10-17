@@ -123,7 +123,7 @@ func BenchmarkPrependLicense(b *testing.B) {
 	if err != nil {
 		b.Fatalf("Error creating test file: %v", err)
 	}
-	licenseText := licenseTxt
+	licenseText := license
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
