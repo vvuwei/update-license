@@ -12,7 +12,10 @@ lint:
 	golangci-lint run
 
 test:
-	go test -p 8 -timeout 5s .
+	go test -timeout 5s .
+
+bench:
+	go test -bench=.
 
 cover:
 	go test . -coverpkg=. -coverprofile ./coverage.out
@@ -21,4 +24,4 @@ cover:
 dry:
 	go run . -path=./tmp -license=./tmp/LICENSE -dry
 
-.PHONY: init clean lint test cover dry
+.PHONY: init clean lint test cover dry bench
